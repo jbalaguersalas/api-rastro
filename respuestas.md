@@ -16,6 +16,9 @@ Cambia cualquier cosa, haz commit e intenta `git push` directamente a `main`. ¿
 
 **Respuesta:**
 
+Recibo un error 500. Como MongoDB está parado, la ruta falla y responde el manejador de errores del final de `index.ts`.
+
+
 
 ## Pregunta 2
 

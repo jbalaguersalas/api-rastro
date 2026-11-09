@@ -2,7 +2,7 @@ import { Router } from "express";
 import { listingsCollection } from "../db";
 // Imports que te harán falta según avances (descomenta cuando los uses,
 // si los dejas sin usar ESLint dará error "no-unused-vars"):
-// import { ObjectId } from "mongodb";                         // Parte 2 (ejercicio 2)
+import { ObjectId } from "mongodb";
 // import type { Filter } from "mongodb";                      // Parte 3
 // import type { Listing } from "../types";                    // Parte 3 / Parte 4
 // import { usersCollection, offersCollection } from "../db";  // Parte 4 / Parte 6
@@ -101,6 +101,31 @@ router.get("/", async (_req, res) => {
 //   GET /api/listings/670000000000000000000099 → 404
 
 // ✏️ TU SOLUCIÓN EJERCICIO 2:
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  // 1. ¿El id tiene formato válido? Si no → 400
+  if (!ObjectId.isValid(id)) {
+    res.status(400).json({ error: "El id no tiene un formato válido" });
+    return;
+  }
+
+  // 2. Buscar el anuncio y sumar 1 a views (y devolverlo ya sumado)
+  const listing = await listingsCollection().findOneAndUpdate(
+    { _id: new ObjectId(id) },
+    { $inc: { views: 1 } },
+    { returnDocument: "after" },
+  );
+
+  // 3. ¿No existe? → 404
+  if (!listing) {
+    res.status(404).json({ error: "No existe ese anuncio" });
+    return;
+  }
+
+  // 4. Todo bien → devolver el anuncio completo
+  res.json(listing);
+});
 
 
 

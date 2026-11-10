@@ -35,6 +35,8 @@ Porque todo lo que viene en la URL llega como texto. La API busca `price: "380"`
 
 **Respuesta:**
 
+Porque esos campos los pone la API, no el cliente. Si no los ignorara, alguien podría crear un anuncio con muchas visitas falsas o vendido.
+
 
 ## Pregunta 4
 

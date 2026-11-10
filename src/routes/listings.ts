@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { listingsCollection } from "../db";
+import { listingsCollection, usersCollection } from "../db";
 // Imports que te harán falta según avances (descomenta cuando los uses,
 // si los dejas sin usar ESLint dará error "no-unused-vars"):
 import { ObjectId } from "mongodb";
@@ -201,6 +201,70 @@ router.get("/:id", async (req, res) => {
 //   "sellerId": "660000000000000000000099"              → 400 (no existe)
 
 // ✏️ TU SOLUCIÓN EJERCICIO 4:
+
+// Devuelve true si es un texto con algo escrito (no vacío)
+function isNonEmptyText(value: unknown): value is string {
+  return typeof value === "string" && value.trim() !== "";
+}
+
+router.post("/", async (req, res) => {
+  const body = req.body ?? {};
+
+  // 1. Los textos obligatorios
+  if (
+    !isNonEmptyText(body.title) ||
+    !isNonEmptyText(body.description) ||
+    !isNonEmptyText(body.category) ||
+    !isNonEmptyText(body.city)
+  ) {
+    res.status(400).json({ error: "title, description, category y city son obligatorios" });
+    return;
+  }
+
+  // 2. El precio: tiene que ser un número >= 0
+  if (typeof body.price !== "number" || body.price < 0) {
+    res.status(400).json({ error: "price tiene que ser un número mayor o igual que 0" });
+    return;
+  }
+
+  // 3. El vendedor: formato de ObjectId
+  if (typeof body.sellerId !== "string" || !ObjectId.isValid(body.sellerId)) {
+    res.status(400).json({ error: "sellerId no tiene un formato válido" });
+    return;
+  }
+
+  // 4. MongoDB no comprueba las referencias: lo hacemos nosotros
+  const seller = await usersCollection().findOne({ _id: new ObjectId(body.sellerId) });
+  if (!seller) {
+    res.status(400).json({ error: "No existe ningún usuario con ese sellerId" });
+    return;
+  }
+
+  // 5. attributes es opcional: si no llega (o no es un objeto), {}
+  const attributes =
+    typeof body.attributes === "object" && body.attributes !== null && !Array.isArray(body.attributes)
+      ? body.attributes
+      : {};
+
+  // 6. Construimos el anuncio campo a campo (nunca req.body tal cual)
+  const newListing: Listing = {
+    title: body.title,
+    description: body.description,
+    price: body.price,
+    category: body.category,
+    status: "AVAILABLE", // siempre disponible al crearlo
+    city: body.city,
+    publishedAt: new Date(), // la fecha de ahora
+    views: 0, // 0 visitas
+    seller: { id: seller._id, name: seller.name }, // copia del usuario
+    photos: [], // sin fotos
+    attributes,
+  };
+
+  const result = await listingsCollection().insertOne(newListing);
+
+  res.status(201).json({ _id: result.insertedId, ...newListing });
+});
 
 
 

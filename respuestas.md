@@ -44,6 +44,8 @@ Ana baja el iPhone de 380 a 350 €. La oferta de Sara guarda una copia: `listin
 
 **Respuesta:**
 
+No. La copia guarda el precio que tenía el anuncio cuando Sara hizo la oferta, y eso no tiene que cambiar.
+
 
 ## Pregunta 5
 

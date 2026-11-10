@@ -53,6 +53,8 @@ No. La copia guarda el precio que tenía el anuncio cuando Sara hizo la oferta, 
 
 **Respuesta:**
 
+Porque la petición está bien hecha y el anuncio existe, pero ya está vendido. Choca con el estado del anuncio.
+
 
 ## Pregunta 6
 
@@ -60,5 +62,5 @@ No. La copia guarda el precio que tenía el anuncio cuando Sara hizo la oferta, 
 
 **Respuesta:**
 
-- MongoDB comprueba:
-- Yo compruebo en el código:
+- MongoDB comprueba: que no se repita un email, porque tiene un índice único.
+- Yo compruebo en el código: que el anuncio existe antes de crear una oferta.

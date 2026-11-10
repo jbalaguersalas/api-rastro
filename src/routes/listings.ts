@@ -3,8 +3,8 @@ import { listingsCollection } from "../db";
 // Imports que te harán falta según avances (descomenta cuando los uses,
 // si los dejas sin usar ESLint dará error "no-unused-vars"):
 import { ObjectId } from "mongodb";
-// import type { Filter } from "mongodb";                      // Parte 3
-// import type { Listing } from "../types";                    // Parte 3 / Parte 4
+import type { Filter } from "mongodb";
+import type { Listing } from "../types";
 // import { usersCollection, offersCollection } from "../db";  // Parte 4 / Parte 6
 
 const router = Router();
@@ -24,15 +24,7 @@ const LIST_FIELDS = { title: 1, price: 1, category: 1, city: 1, status: 1 };
 // Pídelo: tienen que salir 8 anuncios; el primero, la mesa de roble.
 //
 // ⚠️ En la PARTE 3 sustituirás esta ruta por la versión con filtros (ver más abajo).
-router.get("/", async (_req, res) => {
-  const listings = await listingsCollection()
-    .find()
-    .project(LIST_FIELDS)
-    .sort({ publishedAt: -1 })
-    .toArray();
-
-  res.json(listings);
-});
+// (La ruta GET "/" de la Parte 2 se ha sustituido por la de la Parte 3, más abajo)
 
 // =====================================================================
 // PARTE 3 — Filtrar anuncios                 Rama: feature/listing-filters
@@ -81,6 +73,38 @@ router.get("/", async (_req, res) => {
 //   ?maxPrice=abc                               → 400
 
 // ✏️ TU SOLUCIÓN PARTE 3 (pon aquí el router.get("/") con filtros y borra el de la Parte 2):
+router.get("/", async (req, res) => {
+  // Empieza vacío: sin filtros, salen todos
+  const filter: Filter<Listing> = {};
+
+  // category: solo si llega y es un texto
+  if (typeof req.query.category === "string") {
+    filter.category = req.query.category;
+  }
+
+  // city: solo si llega y es un texto
+  if (typeof req.query.city === "string") {
+    filter.city = req.query.city;
+  }
+
+  // maxPrice: llega como texto, hay que pasarlo a número
+  if (req.query.maxPrice !== undefined) {
+    const maxPrice = Number(req.query.maxPrice);
+    if (Number.isNaN(maxPrice)) {
+      res.status(400).json({ error: "maxPrice tiene que ser un número" });
+      return;
+    }
+    filter.price = { $lte: maxPrice };
+  }
+
+  const listings = await listingsCollection()
+    .find(filter)
+    .project(LIST_FIELDS)
+    .sort({ publishedAt: -1 })
+    .toArray();
+
+  res.json(listings);
+});
 
 
 

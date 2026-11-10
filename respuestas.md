@@ -26,6 +26,8 @@ Con `find(req.query)`, ¿por qué `GET /api/listings?price=380` no encuentra el 
 
 **Respuesta:**
 
+Porque todo lo que viene en la URL llega como texto. La API busca `price: "380"` (texto), pero en la base de datos el precio es el número `380`, así que no sale.
+
 
 ## Pregunta 3
 

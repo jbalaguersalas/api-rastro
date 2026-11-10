@@ -20,8 +20,7 @@
 import express from "express";
 import type { NextFunction, Request, Response } from "express";
 import { connectDb, getDb } from "./db";
-// PARTE 2: descomenta esta línea
-// import listingsRouter from "./routes/listings";
+import listingsRouter from "./routes/listings";
 // PARTE 6: descomenta esta línea
 // import offersRouter from "./routes/offers";
 
@@ -44,8 +43,7 @@ app.get("/api/health", async (_req, res) => {
 });
 
 // (aquí irán los routers de las próximas partes)
-// PARTE 2: descomenta esta línea
-// app.use("/api/listings", listingsRouter);
+app.use("/api/listings", listingsRouter);
 // PARTE 6: descomenta esta línea
 // app.use("/api/offers", offersRouter);
 

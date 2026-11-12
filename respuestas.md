@@ -14,7 +14,7 @@ Cambia cualquier cosa, haz commit e intenta `git push` directamente a `main`. ¿
 
 ¿Qué código recibes en `GET /api/health` con MongoDB parado? ¿Qué parte de `index.ts` ha respondido?
 
-**Respuesta:**
+*Respuesta:*
 
 Recibo un error 500. Como MongoDB está parado, la ruta falla y responde el manejador de errores del final de `index.ts`.
 
@@ -24,7 +24,7 @@ Recibo un error 500. Como MongoDB está parado, la ruta falla y responde el mane
 
 Con `find(req.query)`, ¿por qué `GET /api/listings?price=380` no encuentra el iPhone? (Pista: ¿en qué formato llega todo lo que viene en una URL?)
 
-**Respuesta:**
+*Respuesta:*
 
 Porque todo lo que viene en la URL llega como texto. La API busca `price: "380"` (texto), pero en la base de datos el precio es el número `380`, así que no sale.
 
@@ -33,7 +33,7 @@ Porque todo lo que viene en la URL llega como texto. La API busca `price: "380"`
 
 ¿Por qué la API ignora `views` y `status` si el cliente los envía? ¿Qué podría hacer alguien si no los ignorara?
 
-**Respuesta:**
+*Respuesta:*
 
 Porque esos campos los pone la API, no el cliente. Si no los ignorara, alguien podría crear un anuncio con muchas visitas falsas o vendido.
 
@@ -42,7 +42,7 @@ Porque esos campos los pone la API, no el cliente. Si no los ignorara, alguien p
 
 Ana baja el iPhone de 380 a 350 €. La oferta de Sara guarda una copia: `listing.price: 380`. ¿Debe tu PATCH cambiar también esa copia? ¿Por qué?
 
-**Respuesta:**
+*Respuesta:*
 
 No. La copia guarda el precio que tenía el anuncio cuando Sara hizo la oferta, y eso no tiene que cambiar.
 
@@ -51,7 +51,7 @@ No. La copia guarda el precio que tenía el anuncio cuando Sara hizo la oferta, 
 
 ¿Por qué ofertar por un anuncio vendido es 409 y no 400?
 
-**Respuesta:**
+*Respuesta:*
 
 Porque la petición está bien hecha y el anuncio existe, pero ya está vendido. Choca con el estado del anuncio.
 
@@ -60,7 +60,7 @@ Porque la petición está bien hecha y el anuncio existe, pero ya está vendido.
 
 ¿Qué comprueba MongoDB por ti en esta API? ¿Y qué has tenido que comprobar tú en el código? Pon un ejemplo de cada.
 
-**Respuesta:**
+*Respuesta:*
 
 - MongoDB comprueba: que no se repita un email, porque tiene un índice único.
 - Yo compruebo en el código: que el anuncio existe antes de crear una oferta.

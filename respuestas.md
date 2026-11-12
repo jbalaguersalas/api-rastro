@@ -4,11 +4,11 @@
 
 ## Ejercicio 0 — Push directo a `main`
 
-Cambia cualquier cosa, haz commit e intenta `git push` directamente a `main`. ¿Qué pasa? Copia la línea importante del error.
+ error: GH013: Repository rule violations found for refs/heads/main.
+- Changes must be made through a pull request.
 
-```
-(pega aquí la línea del error)
-```
+GitHub no me deja subir directamente a `main`: tengo que hacerlo con una pull request.
+
 
 ## Pregunta 1
 

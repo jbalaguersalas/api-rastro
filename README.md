@@ -6,9 +6,7 @@ Práctica del bootcamp de Full Stack de The Bridge.
 
 Rastro es una app inventada para comprar y vender cosas de segunda mano, parecida a Wallapop.
 
-Yo he hecho la parte de la app que no se ve: la que recibe lo que pide el usuario, lo busca o lo guarda en la base de datos y le contesta. A esa parte se le llama API.
-
-Es como un camarero. Tú le pides algo, él va a la cocina, lo prepara y te lo trae. Aquí la cocina es la base de datos, donde están guardados los usuarios, los anuncios y las ofertas.
+He hecho la API con Express y TypeScript. Recibe las peticiones, lee o guarda los datos en MongoDB (usuarios, anuncios y ofertas) y contesta en JSON.
 
 ## Qué se puede hacer
 
@@ -23,7 +21,7 @@ Es como un camarero. Tú le pides algo, él va a la cocina, lo prepara y te lo t
 
 ## Qué pasa cuando algo sale mal
 
-La API no se rompe ni se queda callada. Siempre contesta y explica qué ha pasado. Por ejemplo:
+Cuando algo falla, la API contesta con un error y un mensaje. Por ejemplo:
 
 - Si alguien pone "barato" en el precio en vez de un número, le avisa de que eso no vale.
 - Si alguien busca un anuncio que no existe, le dice que no existe.
@@ -32,12 +30,10 @@ La API no se rompe ni se queda callada. Siempre contesta y explica qué ha pasad
 
 ## Cómo he trabajado
 
-He trabajado como se hace en una empresa:
-
-- La versión principal del proyecto está protegida. No se puede cambiar directamente, ni siquiera yo.
-- Cada parte la he hecho por separado, en una copia aparte del proyecto.
-- Cuando una parte funcionaba, pedía añadirla a la versión principal.
-- Antes de añadirla, GitHub revisa el código de forma automática. Si encuentra errores, no deja añadirla.
+- La rama `main` está protegida: no se puede subir nada directamente.
+- Cada parte la he hecho en su propia rama.
+- Cuando una parte funcionaba, abría un pull request.
+- Antes de mezclarlo, GitHub Actions pasa el lint. Si falla, no deja mezclar.
 
 La práctica tenía 7 partes:
 

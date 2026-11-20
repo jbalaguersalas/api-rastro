@@ -30,18 +30,6 @@ La API no se rompe ni se queda callada. Siempre contesta y explica qué ha pasad
 - Si alguien quiere hacer una oferta por algo que ya está vendido, le dice que ya no se puede.
 - Si la base de datos está apagada, avisa de que hay un error, pero sin enseñar detalles internos.
 
-## He aprendido
-
-**A no fiarme de la base de datos.** Me guarda cualquier cosa sin comprobar nada. Si le digo que guarde un anuncio de un vendedor que no existe, lo guarda. Así que soy yo quien comprueba que el vendedor existe antes de guardar.
-
-**A no fiarme del usuario.** Si alguien publica un anuncio y dice que ya tiene 9999 visitas, lo ignoro y le pongo 0. Lo mismo si intenta publicarlo como "vendido". Esas cosas las decide la app, no quien lo publica.
-
-**Que lo que se escribe en una dirección web siempre es texto.** Si alguien busca anuncios de hasta 380 €, a mí me llega "380" como texto, no como número. Si no lo convierto, la búsqueda no encuentra nada.
-
-**Que a veces hay que guardar copias.** Cuando alguien hace una oferta, guardo también el precio que tenía el anuncio en ese momento. Si el vendedor lo baja después, la oferta sigue mostrando el precio de cuando se hizo.
-
-**A contestar con el aviso correcto.** No es lo mismo "me has enviado algo mal" que "eso no existe" o "eso ya está vendido". Cada caso tiene su respuesta.
-
 ## Cómo he trabajado
 
 He trabajado como se hace en una empresa:
